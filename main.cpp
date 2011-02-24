@@ -28,7 +28,7 @@ public:
         for(int i=0; i<30; i++) {
             int dx = 18 - qrand() % 36;
             int dy = qrand() % 2;
-            _objects.append(createBall(b2Vec2(18.0f+dx, 62.0f-dy), 0.3f));
+            _objects.append(createBall(b2Vec2(18.0f+dx, 62.0f-dy), 1.0f));
         }
 
         _transform.scale(10.0f, -10.0f);
@@ -85,6 +85,7 @@ public:
 
     void paintEvent(QPaintEvent *) {
         QPainter p(this);
+        p.setRenderHint(QPainter::Antialiasing, true);
         p.setTransform(_transform);
         foreach(const Object& o, _objects) {
             switch(o.type) {
