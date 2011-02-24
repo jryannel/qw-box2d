@@ -38,7 +38,9 @@ public:
         _objects.append(createWall(0.0f, 0.0f, 36.0f, 1.0f));
         _objects.append(createWall(0.0f, 0.0f, 1.0f, 64.0f));
         _objects.append(createWall(35.0f, 0.0f, 1.0f, 64.0f));
-        _objects.append(createWall(14.0f, 32.0f, 8.0f, 1.0f, 0.25f*b2_pi));
+        _objects.append(createWall(14.0f, 32.0f, 8.0f, 1.0f, 0.0f*b2_pi));
+        _objects.append(createWall(4.0f, 48.0f, 8.0f, 1.0f, 0.25f*b2_pi));
+        _objects.append(createWall(24.0f, 48.0f, 8.0f, 1.0f, -0.25f*b2_pi));
     }
 
     Object createWall(float32 x, float32 y, float32 w, float32 h, float32 angle=0) {
@@ -76,8 +78,8 @@ public:
         b2FixtureDef fd;
         fd.shape = &shape;
         fd.density = 1.0f;
-        fd.friction = 0.7f;
-        fd.restitution = 0.5f;
+        fd.friction = 1.0f;
+        fd.restitution = 0.6f;
         o.fixture = o.body->CreateFixture(&fd);
         o.type = BallObject;
         return o;
@@ -108,10 +110,12 @@ public:
         float32 hx = shape->GetVertex(1).x;
         float32 hy = shape->GetVertex(2).y;
         QRectF r(x-hx, y-hy, 2*hx, 2*hy);
+        p->save();
         p->translate(r.center());
         p->rotate(angle*180/b2_pi);
         p->translate(-r.center());
         p->drawRect(r);
+        p->restore();
     }
 
     void drawEllipse(QPainter *p, const Object& o) {
