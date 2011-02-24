@@ -6,3 +6,6 @@ SOURCES += \
     main.cpp
 
 QT += opengl
+
+OTHER_FILES += \
+    readme.txt
